@@ -42,14 +42,7 @@
                                 <th>ETA</th>
                                 <th>Action</th>
                             </thead>
-                            <tbody class="text-center" id="taskTableBody">
-                                <tr>
-                                    <td>1</td>
-                                    <td>Example Task Name</td>
-                                    <td>me</td>
-                                    <td>Time</td>
-                                    <td><i class="bi bi-check-circle-fill" onclick="markAsDone('+i+')"></i><i class="bi bi-pencil-square"  onclick="editTask('+i+')"></i></td>
-                                </tr>                 
+                            <tbody class="text-center" id="taskTableBody">               
                             </tbody>
                             </table>
                         </div>
@@ -100,7 +93,7 @@
                         <div class="modal-body">
                             <div class="mb-3">
                                 <label for="editTaskTextArea" class="form-label">Task/Description</label>
-                                <textarea class="form-control" id="addTextArea" name="taskDescription" rows="3" placeholder="Add your Task/Description"></textarea>
+                                <textarea class="form-control" id="editTextArea" name="taskDescription" rows="3" placeholder="Add your Task/Description"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="editTaskResponsible" class="form-label">Responsible</label>
@@ -114,7 +107,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" onclick="updateTask()">Add Task</button>
+                            <button type="button" class="btn btn-primary" onclick="updateTask()">Update Task</button>
                         </div>
                     </div>
                 </div>
@@ -132,12 +125,13 @@
             }
 
             function addTask(){
-                console.log('Add Tak Clicked')
-                $('#addTaskModal').modal('hide')
+                console.log('Add Task clicked')
+                $("#addTaskModal").modal('hide')
                 var dataArr = $("#taskInputForm").serializeArray();
+                console.log(dataArr)
                 var taskObject = new Object();
                 var storageObjectArr = [];
-                var storageObject = localstorage.getitem('taskStorage');
+                var storageObject = localStorage.getItem('taskStorage');
                 for(var i in dataArr){
                     var name = dataArr[i]['name']
                     var value = dataArr[i]['value']
@@ -150,28 +144,27 @@
                 }else{
                     storageObjectArr.push(taskObject)
                 }
-
                 localStorage.setItem('taskStorage',JSON.stringify(storageObjectArr))
                 createHtmlfromStorage()
-                $("taskInputForm").trigger('reset')
+                $('#taskInputForm').trigger('reset')
             }
 
             function createHtmlfromStorage(){
                 var storageObjectArr = [];
-                var storageObject = localStorage.getitem('taskStorage');
+                var storageObject = localStorage.getItem('taskStorage');
                 var storageObjectArr = JSON.parse(storageObject);
                 html = '';
                 console.log(storageObjectArr)
                 if (storageObject != null && storageObject != '' && storageObject != undefined){
                     if(storageObjectArr && storageObjectArr.length > 0){
                         for(let i in storageObjectArr){
-                            var date = new Data
+                            var date = new Date()
                             html = html + '<tr>'
-                                    + '<td>' + parseInt(i)+1 + '</td>'
+                                    + '<td>' + (parseInt(i)+1) + '</td>'
                                     + '<td>' + storageObjectArr[i]['taskDescription']+'</td>'
                                     + '<td>' + storageObjectArr[i]['taskResponsiblePerson']+ '</td>'
                                     + '<td>' + date.toUTCString() +'</td>'
-                                    + '<td><i class="bi bi-check-circle-fill"  onclick="markAsDone('+i+')"></i><i class="bi bi-check-pencil-square" onclick="editTask('+i+')"></i></td></tr>'  
+                                    + '<td><i class="bi bi-check-circle-fill"  onclick="markAsDone('+i+')"></i><i class="bi bi-pencil-square"  onclick="editTask('+i+')"></i></td></tr>'  
                         }
 
                     }else{
@@ -181,34 +174,36 @@
                 $('#taskTableBody').html(html)
 
                 }
-                function markAsDone(index){
+                 function markAsDone(index){
                     console.log(index)
                     var storageObjectArr = [];
-                    var storageObject = localstorage.getitem('taskStorage');
+                    var storageObject = localStorage.getItem('taskStorage');
                     if(storageObject != null && storageObject != '' && storageObject != undefined){
                         storageObjectArr = JSON.parse(storageObject);
                         storageObjectArr.pop(index)
                     }
-                    localstorage.section('taskStorage',stringify(storageObjectArr))
+                    localStorage.setItem('taskStorage',JSON.stringify(storageObjectArr))
+                    createHtmlfromStorage()
                 }
                 function editTask(index){
+                    console.log(index)
                     var storageObjectArr = [];
-                    var storageObject = localstorage.getitem('taskStorage');
+                    var storageObject = localStorage.getItem('taskStorage');
                     if(storageObject != null && storageObject != '' && storageObject != undefined){
-                        storageObjectArr = JSON.parse(storageObject)
-                        $("editTaskTextArea").val(storageObjectArr[index]['taskDescription'])
-                        $("editTaskResponsible").val(storageObjectArr[index]['taskResponsiblePerson'])
-                        $("editTaskETA").val(storageObjectArr[index]['taskETA'])
-                        $("editIndex").val(index)
-                        $("updateTaskModal").modal('show')
+                        storageObjectArr = JSON.parse(storageObject);
+                        $("#editTaskTextArea").val(storageObjectArr[index]['taskDescription'])
+                        $("#editTaskResponsible").val(storageObjectArr[index]['taskResponsiblePerson'])
+                        $("#editTaskETA").val(storageObjectArr[index]['taskETA'])
+                        $("#editIndex").val(index)
+                        $("#updateTaskModal").modal('show')
                     }
                 }
                 function updateTask(){
-                    $("updateTaskModal").modal('hide')
+                    $("#updateTaskModal").modal('hide')
                     var dataArr = $("#taskUpdateForm").serializeArray();
                     var taskObject = new Object();
                     var storageObjectArr = [];
-                    var storageObject = localstorage.getitem('taskStorage');
+                    var storageObject = localStorage.getItem('taskStorage');
                     for(var i in dataArr){
                         var name = dataArr[i]['name']
                         var value = dataArr[i]['value']
@@ -217,7 +212,7 @@
 
                     if (storageObject != null && storageObject != '' && storageObject != undefined){
                         storageObjectArr = JSON.parse(storageObject)
-                        storageObjectArr(taskObject['taskIndex']) = taskObject
+                        storageObjectArr[taskObject['taskIndex']] = taskObject
                     }
                     localStorage.setItem('taskStorage',JSON.stringify(storageObjectArr))
                     createHtmlfromStorage()
