@@ -73,7 +73,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="showAlert()">
     <div id="top-bg">
         <div>
         <img class="m-3" src="assets/logo.png" alt="logo" width="100px">
@@ -117,6 +117,10 @@
     </div>
 
     <script>
+
+        function showAlert(){
+            alert("The site is preffered to be open on desktop");
+        }
 
          window.onscroll = function() {scrollFunction()};
 
