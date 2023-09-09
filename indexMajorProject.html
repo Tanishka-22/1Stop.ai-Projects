@@ -12,17 +12,12 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a href="#" class="navbar brand">
-                    <img src="assets/logo.png" class="img-fluid" width="150">
+                <a href="#" class="navbar-brand">
+                    <img src="assets/logo.png" height="50px" alt="brand logo">
                 </a>
-                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar">
+                <button type="button" class="navbar-toggler collapsed" data-bs-toggle="dropdown" data-bs-target="#navbar1">
                     <i class="bi bi-list"></i>
                 </button>
-                <div class="collapse navbar-collapse" id="navbar">
-                    <div class="navbar-nav ms-auto">
-
-                    </div>
-                </div>
             </div>
         </nav>
 
@@ -51,7 +46,8 @@
             </div>
         </div>
 
-        <div class="modal fade" id="addTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addTaskLabel" aria-hidden="true">
+        <div class="modal fade" id="addTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addTaskLabel" 
+            aria-hidden="true">
             <form id="taskInputForm">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -66,7 +62,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="askTaskResponsible" class="form-label">Responsible</label>
-                                <input type="text" class="form-control" id="addResponsiblePerson" name="taskResponsiblePerson" rows="3" placeholder="Add the Responsible Person"></textarea>
+                                <input type="text" class="form-control" id="addResponsiblePerson" name="taskResponsiblePerson" rows="3" 
+                                placeholder="Add the Responsible Person">
                             </div>
                             <div class="mb-3">
                                 <label for="askTaskETA" class="form-label">ETA</label>
@@ -82,7 +79,8 @@
             </form>
         </div>
 
-        <div class="modal fade" id="updateTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateTaskLabel" aria-hidden="true">
+        <div class="modal fade" id="updateTaskModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateTaskLabel"
+             aria-hidden="true">
             <form id="taskUpdateForm">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -97,7 +95,8 @@
                             </div>
                             <div class="mb-3">
                                 <label for="editTaskResponsible" class="form-label">Responsible</label>
-                                <input type="text" class="form-control" id="editResponsiblePerson" name="taskResponsiblePerson" rows="3" placeholder="Add the Responsible Person"></textarea>
+                                <input type="text" class="form-control" id="editResponsiblePerson" name="taskResponsiblePerson" rows="3" 
+                                placeholder="Add the Responsible Person"></textarea>
                             </div>
                             <div class="mb-3">
                                 <label for="editTaskETA" class="form-label">ETA</label>
@@ -111,11 +110,13 @@
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
+            </form></div>
+        
 
-        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha512-nnzkI2u2Dy6HMnzMIkh7CPd1KX445z38XIu4jG1jGw7x5tSL3VBjE44dY4ihMU1ijAQV930SPM12cCFrB18sVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" 
+        crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.10.2/umd/popper.min.js" integrity="sha512-nnzkI2u2Dy6HMnzMIkh7CPd1KX445z38X
+        Iu4jG1jGw7x5tSL3VBjE44dY4ihMU1ijAQV930SPM12cCFrB18sVw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="vendor/js/bootstrap.js"></script>
         <script>
             createHtmlfromStorage();
@@ -164,7 +165,7 @@
                                     + '<td>' + storageObjectArr[i]['taskDescription']+'</td>'
                                     + '<td>' + storageObjectArr[i]['taskResponsiblePerson']+ '</td>'
                                     + '<td>' + date.toUTCString() +'</td>'
-                                    + '<td><i class="bi bi-check-circle-fill"  onclick="markAsDone('+i+')"></i><i class="bi bi-pencil-square"  onclick="editTask('+i+')"></i></td></tr>'  
+                                    + '<td><i class="bi bi-check-circle-fill"  onclick="markAsDone('+i+')"></i><i class="bi bi-pencil-square" onclick="editTask('+i+')"></i></td></tr>'  
                         }
 
                     }else{
